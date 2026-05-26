@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Prediction</h1>
+<h2>Enter 15 Network Traffic Features</h2>
+{% if error %}<p class="center attack">{{ error }}</p>{% endif %}
+<form method="POST">
+    <div class="form-grid">
+        {% for f in features %}
+        <div class="input-box">
+            <label>{{ labels[f] }}</label>
+            <input type="number" step="any" name="{{ f }}" placeholder="Enter {{ labels[f] }}" required>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="prediction-guide">
+        <h3>Input Value Understanding</h3>
+        <div class="guide-grid">
+            <div><b class="normal">Normal Traffic</b><p>Low packet rate, balanced forward/backward packets, moderate flow duration, and stable bytes/sec usually indicate normal network activity.</p></div>
+            <div><b class="attack">Attack Traffic</b><p>Very high packets/sec, abnormal bytes/sec, sudden packet length changes, or unusual flow patterns may indicate DDoS or suspicious traffic.</p></div>
+            <div><b class="avg">Average / Medium Risk</b><p>Values between normal and abnormal ranges may produce medium severity. These cases should be monitored using history and recommendation.</p></div>
+        </div>
+    </div>
+    <div class="actions">
+        <button>Detect Threat</button>
+        <a class="btn" href="{{ url_for('home') }}">Back Home</a>
+    </div>
+</form>
+{% endblock %}

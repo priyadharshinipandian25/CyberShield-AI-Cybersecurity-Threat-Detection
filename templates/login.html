@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Login | CyberShield</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="page auth">
+    <h1>CyberShield</h1>
+    <h2>Login</h2>
+    {% if error %}<p class="center attack">{{ error }}</p>{% endif %}
+    <form method="POST">
+        <div class="input-box"><label>Username or Email</label><input name="username" required></div>
+        <div class="input-box"><label>Password</label><input type="password" name="password" required></div>
+        <div class="actions"><button>Login</button><a class="btn" href="{{ url_for('register') }}">Create Account</a></div>
+    </form>
+    <p class="center small">Admin demo: admin / admin123</p>
+</div>
+</body>
+</html>

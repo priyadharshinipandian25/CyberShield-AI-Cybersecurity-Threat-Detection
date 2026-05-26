@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Prediction Result</h1>
+<div class="result-box">
+    <h2 class="{% if row.result == 'Normal Traffic' %}normal{% else %}attack{% endif %}">{{ row.result }}</h2>
+    <p><b>Date:</b> {{ row.created_at[:10] }} &nbsp; <b>Time:</b> {{ row.created_at[11:19] }}</p>
+    <p><b>Country:</b> {{ row.country or 'Unknown' }} &nbsp; <b>IP Address:</b> {{ row.ip_address or 'Unknown' }}</p>
+    <p><b>Severity:</b> {{ row.severity }}</p>
+    <p><b>Confidence:</b> {{ row.confidence }}%</p>
+    <p><b>Security Score:</b> {{ row.security_score }}/100</p>
+    <p class="lead"><b>Recommendation:</b> {{ row.recommendation }}</p>
+</div>
+<div class="actions">
+    <a class="btn" href="{{ url_for('predict') }}">Predict Again</a>
+    <a class="btn" href="{{ url_for('history') }}">View History</a>
+    <a class="btn" href="{{ url_for('pdf_report', detection_id=row.id) }}">Download PDF</a>
+</div>
+{% endblock %}

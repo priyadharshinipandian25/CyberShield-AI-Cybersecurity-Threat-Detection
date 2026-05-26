@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Project Report</h1>
+<h2>CyberShield: AI-Based Cybersecurity Threat Detection Web Application</h2>
+
+<div class="actions"><a class="btn big pulse" href="{{ url_for('download_project_report') }}">Download Full Project Report PDF</a></div>
+
+<div class="report-section"><h3>Abstract</h3><p>CyberShield is a machine learning based cybersecurity web application developed to classify network traffic as Normal Traffic or Cyber Attack Detected. The system processes 15 network traffic features, stores user-wise prediction history, displays graphical analysis, generates PDF and CSV outputs, scans uploaded files for basic malware risk, and provides chatbot support for project and cybersecurity questions.</p></div>
+
+<div class="report-section"><h3>Problem Statement</h3><p>Modern networks generate large amounts of traffic every second. Suspicious traffic bursts, DDoS-style behavior, malicious files, and unauthorized access are difficult to monitor manually. CyberShield solves this by providing a simple web-based platform that combines prediction, storage, visualization, reporting, and access control.</p></div>
+
+<div class="report-section"><h3>Objectives</h3><ul><li>To detect normal and suspicious network traffic using 15 selected traffic features.</li><li>To provide a clean web interface for login, prediction, result viewing, and history analysis.</li><li>To store prediction records with date, time, country, and IP address.</li><li>To generate chart, PDF report, and CSV export for review and documentation.</li><li>To include malware scanning and chatbot modules as additional cybersecurity support features.</li><li>To allow admin users to view registered users and allow or block user access.</li></ul></div>
+
+<div class="report-section"><h3>System Modules</h3><div class="module-grid"><div class="module"><b>Login & Registration</b><span>Users can create accounts and login securely. Passwords are stored using hashing.</span></div><div class="module"><b>Home</b><span>Introduces CyberShield and gives quick access to main project modules.</span></div><div class="module"><b>Prediction</b><span>Accepts 15 network traffic values and classifies the traffic.</span></div><div class="module"><b>Result</b><span>Shows classification result, severity, confidence, score, recommendation, country, and IP address.</span></div><div class="module"><b>History</b><span>Displays records with chart, graph, PDF download, CSV export, delete, and clear options.</span></div><div class="module"><b>Malware Scanner</b><span>Checks extension, size, suspicious keywords, SHA-256 hash, and risk score.</span></div><div class="module"><b>Chatbot</b><span>Answers cybersecurity questions and questions about all CyberShield project features.</span></div><div class="module"><b>Admin Panel</b><span>Admin can view users, detections, scans, and allow or block users.</span></div></div></div>
+
+<div class="report-section"><h3>Technologies Used</h3><div class="tech-grid"><div class="tech-card"><b>Frontend</b><span>HTML, CSS, JavaScript, Chart.js</span></div><div class="tech-card"><b>Backend</b><span>Python Flask</span></div><div class="tech-card"><b>Database</b><span>SQLite</span></div><div class="tech-card"><b>Machine Learning</b><span>scikit-learn Random Forest, joblib model file</span></div><div class="tech-card"><b>Security</b><span>Password hashing, session login, admin allow/block access</span></div><div class="tech-card"><b>Reports</b><span>FPDF report generation and CSV export</span></div></div></div>
+
+<div class="report-section"><h3>Workflow</h3><div class="flow"><span>Login</span><b>→</b><span>Home</span><b>→</b><span>Prediction</span><b>→</b><span>Result</span><b>→</b><span>History</span><b>→</b><span>PDF / CSV</span></div></div>
+
+<div class="grid"><div class="card blue center"><b>Total Detections</b><div class="stat">{{ total }}</div></div><div class="card green center"><b>Normal Traffic</b><div class="stat">{{ normal }}</div></div><div class="card red center"><b>Cyber Attacks</b><div class="stat">{{ attacks }}</div></div><div class="card orange center"><b>Malware Scans</b><div class="stat">{{ malware }}</div></div></div>
+
+<div class="report-section"><h3>Advantages</h3><ul><li>Complete user flow from login to prediction and report download.</li><li>User-wise history storage with chart-based analysis.</li><li>Admin can control whether users are allowed to access the application.</li><li>Includes additional cybersecurity modules such as malware scanner and chatbot.</li><li>Suitable for academic demonstration and project review.</li></ul></div>
+
+<div class="report-section"><h3>Limitations</h3><p>The malware scanner uses basic static analysis and does not replace a professional antivirus engine. The traffic prediction quality depends on the trained dataset and selected model features.</p></div>
+
+<div class="report-section"><h3>Future Enhancements</h3><ul><li>Email-based password reset and OTP verification.</li><li>Real-time network packet capture integration.</li><li>Advanced malware signature and sandbox analysis.</li><li>Role-based reports for admin and normal users.</li><li>Improved deep learning based threat classification.</li></ul></div>
+
+<div class="report-section"><h3>Conclusion</h3><p>CyberShield demonstrates how machine learning, Flask web development, database storage, visualization, reporting, and cybersecurity concepts can be integrated into one practical PG-level academic project.</p></div>
+{% endblock %}

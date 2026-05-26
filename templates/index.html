@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>CyberShield</h1>
+<h2>AI-Based Cybersecurity Threat Detection Web Application</h2>
+<p class="lead">Welcome {{ session.username }}. CyberShield is designed to help users analyze network traffic, detect possible cyber attacks, scan suspicious files, view prediction history, generate reports, and get cybersecurity guidance through a chatbot.</p>
+
+<div class="grid">
+    <div class="card green center"><b>Normal Traffic</b><div class="stat">{{ normal }}</div></div>
+    <div class="card red center"><b>Cyber Attacks</b><div class="stat">{{ attacks }}</div></div>
+    <div class="card blue center"><b>Total Detections</b><div class="stat">{{ total }}</div></div>
+    <div class="card orange center"><b>Malware Scans</b><div class="stat">{{ malware }}</div></div>
+</div>
+<div class="actions"><a class="btn big pulse" href="{{ url_for('predict') }}">Start Prediction</a></div>
+
+{% endblock %}

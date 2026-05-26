@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberShield</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<div class="cyber-bg"></div>
+<button class="theme-toggle" onclick="toggleTheme()" title="Change theme">🌙</button>
+<div class="page fade-in">
+    {% if session.get('user_id') %}
+    <div class="nav glass">
+        <a href="{{ url_for('home') }}">Home</a>
+        <a href="{{ url_for('predict') }}">Prediction</a>
+        <a href="{{ url_for('history') }}">History</a>
+        <a href="{{ url_for('malware') }}">Malware</a>
+        <a href="{{ url_for('chatbot') }}">Chatbot</a>
+        <a href="{{ url_for('report') }}">Report</a>
+        <a href="{{ url_for('profile') }}">Profile</a>
+        {% if session.get('role') == 'admin' %}<a href="{{ url_for('admin_panel') }}">Admin</a>{% endif %}
+        <a class="logout" href="{{ url_for('logout') }}">Logout</a>
+    </div>
+    {% endif %}
+    {% block content %}{% endblock %}
+</div>
+<div class="footer">CyberShield | AI-Based Cybersecurity Threat Detection Web Application</div>
+<script>
+function applyTheme(theme){
+    document.body.classList.toggle('light-theme', theme === 'light');
+    localStorage.setItem('cybershield_theme', theme);
+    const btn = document.querySelector('.theme-toggle');
+    if(btn){ btn.textContent = theme === 'light' ? '☀️' : '🌙'; }
+}
+function toggleTheme(){
+    const next = document.body.classList.contains('light-theme') ? 'dark' : 'light';
+    applyTheme(next);
+}
+applyTheme(localStorage.getItem('cybershield_theme') || 'dark');
+</script>
+</body>
+</html>

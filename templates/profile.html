@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Profile</h1>
+<h2>User Details</h2>
+<div class="card profile-card">
+    <div class="profile-line"><b>Username:</b> {{ user.username }}</div>
+    <div class="profile-line"><b>Email:</b> {{ user.email }}</div>
+    <div class="profile-line"><b>Role:</b> {{ user.role }}</div>
+    <div class="profile-line"><b>Created At:</b> {{ user.created_at }}</div>
+</div>
+<div class="actions"><a class="btn" href="{{ url_for('home') }}">Home</a><a class="btn" href="{{ url_for('history') }}">History</a></div>
+{% endblock %}

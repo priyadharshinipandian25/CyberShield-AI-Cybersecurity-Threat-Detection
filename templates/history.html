@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>History</h1>
+<h2>Detection Records</h2>
+<div class="grid">
+    <div class="card green center"><b>Normal Traffic</b><div class="stat">{{ normal }}</div></div>
+    <div class="card red center"><b>Cyber Attacks</b><div class="stat">{{ attacks }}</div></div>
+    <div class="card blue center"><b>Total Detections</b><div class="stat">{{ total }}</div></div>
+</div>
+<div class="chart-box">
+    <h3 class="center">Normal vs Attack Graph</h3>
+    <canvas id="historyChart"></canvas>
+</div>
+<script>
+new Chart(document.getElementById('historyChart'), {
+    type: 'doughnut',
+    data: { labels: ['Normal Traffic','Cyber Attack'], datasets: [{ data: [{{ normal }}, {{ attacks }}] }] },
+    options: { plugins: { legend: { labels: { color: '#fff' } } }, animation: { animateScale: true, animateRotate: true } }
+});
+</script>
+<div class="actions">
+    <a class="btn" href="{{ url_for('export_csv') }}">Download CSV</a>
+    <a class="btn" href="{{ url_for('predict') }}">Predict Again</a>
+    <a class="btn logout" href="{{ url_for('clear_history') }}" onclick="return confirm('Clear all history?')">Clear History</a>
+</div>
+<div class="table-wrap">
+<table>
+<tr><th>Date</th><th>Time</th><th>Country</th><th>IP Address</th><th>Result</th><th>Severity</th><th>Confidence</th><th>PDF</th><th>Action</th></tr>
+{% for r in rows %}
+<tr>
+    <td>{{ r.created_at[:10] }}</td><td>{{ r.created_at[11:19] }}</td><td>{{ r.country or 'Unknown' }}</td><td>{{ r.ip_address or 'Unknown' }}</td>
+    <td><b class="{% if r.result == 'Normal Traffic' %}normal{% else %}attack{% endif %}">{{ r.result }}</b></td><td>{{ r.severity }}</td><td>{{ r.confidence }}%</td>
+    <td><a class="mini-btn" href="{{ url_for('pdf_report', detection_id=r.id) }}">PDF</a></td>
+    <td><a class="danger" href="{{ url_for('delete_detection', detection_id=r.id) }}" onclick="return confirm('Delete this record?')">Delete</a></td>
+</tr>
+{% else %}<tr><td colspan="9">No history available</td></tr>{% endfor %}
+</table>
+</div>
+{% endblock %}

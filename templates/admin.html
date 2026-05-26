@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Admin Panel</h1>
+<h2>User Access Control and Application Data</h2>
+<p class="lead">Admin can activate or block users. Users can only use the application and view their own records.</p>
+<h3>Registered Users</h3>
+<div class="table-wrap"><table><tr><th>ID</th><th>Username</th><th>Email</th><th>Role</th><th>Status</th><th>Created At</th><th>Access</th></tr>
+{% for u in users %}
+<tr>
+<td>{{ u.id }}</td><td>{{ u.username }}</td><td>{{ u.email }}</td><td>{{ u.role }}</td>
+<td><b class="{% if u.status == 'active' %}normal{% else %}attack{% endif %}">{{ u.status }}</b></td><td>{{ u.created_at }}</td>
+<td>{% if u.role != 'admin' %}<a class="mini-btn" href="{{ url_for('toggle_user', user_id=u.id) }}">{% if u.status == 'active' %}Block User{% else %}Allow User{% endif %}</a>{% else %}Admin protected{% endif %}</td>
+</tr>
+{% endfor %}</table></div>
+<h3>All Detection Records</h3>
+<div class="table-wrap"><table><tr><th>User</th><th>Date</th><th>Time</th><th>Country</th><th>IP</th><th>Result</th><th>Severity</th></tr>
+{% for r in detections %}<tr><td>{{ r.username }}</td><td>{{ r.created_at[:10] }}</td><td>{{ r.created_at[11:19] }}</td><td>{{ r.country or 'Unknown' }}</td><td>{{ r.ip_address or 'Unknown' }}</td><td>{{ r.result }}</td><td>{{ r.severity }}</td></tr>
+{% else %}<tr><td colspan="7">No detections</td></tr>{% endfor %}</table></div>
+<h3>All Malware Scans</h3>
+<div class="table-wrap"><table><tr><th>User</th><th>Date</th><th>Filename</th><th>Risk</th><th>Result</th></tr>
+{% for s in scans %}<tr><td>{{ s.username }}</td><td>{{ s.created_at }}</td><td>{{ s.filename }}</td><td>{{ s.risk_score or 0 }}/100</td><td>{{ s.result }}</td></tr>
+{% else %}<tr><td colspan="5">No scans</td></tr>{% endfor %}</table></div>
+{% endblock %}

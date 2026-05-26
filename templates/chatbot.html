@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>AI Chatbot</h1>
+<h2>CyberShield Help Assistant</h2>
+<div class="quick-box"><span>Ask about:</span> <b>Cybersecurity</b> · <b>Artificial Intelligence</b> · <b>Random Forest</b> · <b>Machine Learning</b> · <b>Algorithms</b> · <b>Frontend</b> · <b>Backend</b> · <b>Input Features</b> · <b>Network Traffic</b> · <b>Prediction System</b></div>
+<form method="POST">
+    <div class="input-box"><label>Your Question</label><textarea name="question" rows="4" required>{{ question }}</textarea></div>
+    <div class="actions"><button>Ask Chatbot</button></div>
+</form>
+{% if answer %}<div class="result-box bot"><h3>Chatbot Answer</h3><p class="lead chat-answer">{{ answer }}</p></div>{% endif %}
+{% endblock %}
